@@ -53,6 +53,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>start.SpringbootApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
