@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 public class hello {
-    public static void main(String args[]) {
+    public static void mainHello() {
 
         System.out.print("Hello world!");
         hello h = new hello();
