@@ -1,9 +1,9 @@
-package dao.intf;
+package dao;
 
 import model.User;
 import java.util.List;
 
-public interface UserDaoIntf {
+public interface UserDao {
     /**
      * 创建用户
      *

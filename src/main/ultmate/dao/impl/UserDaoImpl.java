@@ -1,6 +1,6 @@
 package dao.impl;
 
-import dao.intf.UserDaoIntf;
+import dao.UserDao;
 import mapper.UserMapper;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
  * 用户DAO层
  */
 @Repository
-public class UserDaoImpl implements UserDaoIntf {
+public class UserDaoImpl implements UserDao {
 
     @Autowired
     private UserMapper userMapper;
