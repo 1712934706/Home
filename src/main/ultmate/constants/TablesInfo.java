@@ -6,7 +6,7 @@ public class TablesInfo {
     /**
      * 用户表
      */
-    public final static String USER_TABLE_NAME = " user ";
+    public final static String USER_TABLE_NAME = " userinfo ";
 
     /**
      * 用户表插入列名
