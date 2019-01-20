@@ -3,10 +3,12 @@ package start;
 import com.google.gson.Gson;
 import mapper.UserMapper;
 import model.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,7 +26,8 @@ public class SpringbootApplicationTest {
 
     @Autowired
     UserMapper userMapper;
-
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Test
     public void contextLoads() {
@@ -33,7 +36,9 @@ public class SpringbootApplicationTest {
         User user = userMapper.selectUserById(1);
 
         System.out.println(gson.toJson(user));
-
+        redisTemplate.opsForValue().set("test:set1", "testValue1");
+        Assert.assertEquals("testValue1", redisTemplate.opsForValue().get("test:set1"));
+        System.out.println(redisTemplate.opsForValue().get("test:set1"));
     }
 
 }
