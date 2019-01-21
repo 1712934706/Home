@@ -1,19 +1,13 @@
 package temp;
 
-import com.google.gson.Gson;
-import model.User;
-import org.springframework.boot.json.GsonJsonParser;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class hello {
 

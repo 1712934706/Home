@@ -45,7 +45,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User seleteUserDao(int id) {
-        User user=userMapper.selectUserById(id);
+        User user = userMapper.selectUserById(id);
         return user;
     }
 
