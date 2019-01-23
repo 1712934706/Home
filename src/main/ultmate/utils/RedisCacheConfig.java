@@ -4,24 +4,30 @@ import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
-
-import java.time.Duration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport {
     /**
-     * RedisCacheConfiguration配置
+     * RedisTemplate配置
      *
+     * @param connectionFactory
+     * @return
      */
     @Bean
-    public RedisCacheConfiguration redisCacheConfiguration() {
-        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
-        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
-        configuration = configuration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(fastJsonRedisSerializer)).entryTtl(Duration.ofDays(30));
-        return configuration;
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory connectionFactory) {
+        // 配置redisTemplate
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(connectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());//key序列化
+        redisTemplate.setValueSerializer(new FastJsonRedisSerializer<>(Object.class));//value序列化
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new FastJsonRedisSerializer<>(Object.class));
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
     }
 
 }
