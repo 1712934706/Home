@@ -2,9 +2,7 @@
 
 ##tomcat配置
 server:
-  tomcat:
     port: 8080
-    uriEncoding: utf-8
 
 ##mysql配置，redis配置
 spring:

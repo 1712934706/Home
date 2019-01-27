@@ -1,16 +1,17 @@
 package utils;
 
+import java.io.Serializable;
+
 /**
  * 数据包装类
  *
- * @param <T> 熟路类型
+ * @param <T> 数据类型
  */
-public class JsonData<T> {
+public class JsonData<T> implements Serializable {
 
     private String message;
     private String code;
     private Boolean isSuccess;
-
     private T data;
 
     public JsonData(Boolean isSuccess) {

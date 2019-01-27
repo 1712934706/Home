@@ -2,20 +2,30 @@ package controller;
 
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import service.UserService;
 import utils.JsonData;
 
-@Controller
+/**
+ * 用户相关信息控制类
+ */
+@RestController
+@RequestMapping(path = "/user")
 public class UserController {
-    @Autowired
     private UserService userService;
 
+    //使用spring推荐的构造器注入
+    @Autowired
+    UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-    @GetMapping
-    public JsonData<User> getUserInfoByID() {
-        User user = userService.getUserInfoByID(1);
+    @GetMapping("/getUserInfo")
+    public JsonData<User> getUserInfoByID(@RequestParam("id") int id) {
+        User user = userService.getUserInfoByID(id);
         return new JsonData<>(true, "成功", user);
     }
 
