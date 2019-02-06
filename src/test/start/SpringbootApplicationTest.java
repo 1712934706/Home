@@ -35,7 +35,7 @@ public class SpringbootApplicationTest {
 
         System.out.println(JSON.toJSONString(user));
         redisTemplate.opsForValue().set("key2", "value2");
-        Assert.assertEquals("value1", redisTemplate.opsForValue().get("key2"));
+        Assert.assertEquals("value2", redisTemplate.opsForValue().get("key2"));
         System.out.println(redisTemplate.opsForValue().get("key2"));
     }
 
