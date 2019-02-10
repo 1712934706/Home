@@ -9,9 +9,25 @@ import java.io.Serializable;
  */
 public class JsonData<T> implements Serializable {
 
+    private static final long serialVersionUID = -5809782578272943991L;
+
+    /**
+     * 提示信息
+     */
     private String message;
+    /**
+     * 错误码
+     */
     private String code;
+
+    /**
+     * 执行是否成功
+     */
     private Boolean isSuccess;
+
+    /**
+     * 数据结果
+     */
     private T data;
 
     public JsonData(Boolean isSuccess) {
@@ -25,6 +41,13 @@ public class JsonData<T> implements Serializable {
 
     public JsonData(Boolean isSuccess, String message, T data) {
         this.isSuccess = isSuccess;
+        this.message = message;
+        this.data = data;
+    }
+
+    public JsonData(Boolean isSuccess, String code, String message, T data) {
+        this.isSuccess = isSuccess;
+        this.code = code;
         this.message = message;
         this.data = data;
     }

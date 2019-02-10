@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scripting.support.ResourceScriptSource;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
@@ -14,25 +15,29 @@ import java.util.Collections;
  *
  * @see 参考 https://blog.csdn.net/u014495560/article/details/82531046
  */
+@Service
 public class RedisDistributedLock {
 
     @Autowired
-    private static RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
 
-    /**
-     * 这里留着使用其他写法，目前锁是读取lua脚本实现
-     */
-    private static DefaultRedisScript<String> redisScript;
+    private DefaultRedisScript<String> redisScript;
 
     private static final Long EXEC_RESULT = 1L;
+
+    private void init() {
+        redisScript = new DefaultRedisScript<>();
+        redisScript.setResultType(String.class);
+    }
 
     /**
      * @param key        锁的key
      * @param requestId  客户端id
-     * @param expireTime 过期时间
+     * @param expireTime 过期时间。使用expire，单位/s
      * @return
      */
-    public static boolean getLock(String key, String requestId, String expireTime) {
+    public boolean getLock(String key, String requestId, String expireTime) {
+        init();
         redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("script/lock.lua")));
         Object result = redisTemplate.execute(redisScript, new StringRedisSerializer(), new StringRedisSerializer(), Collections.singletonList(key), requestId, expireTime);
         if (EXEC_RESULT.equals(result)) {
@@ -46,7 +51,8 @@ public class RedisDistributedLock {
      * @param requestId 客户端id
      * @return
      */
-    public static boolean releaseLock(String key, String requestId) {
+    public boolean releaseLock(String key, String requestId) {
+        init();
         redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("script/unlock.lua")));
         Object result = redisTemplate.execute(redisScript, new StringRedisSerializer(), new StringRedisSerializer(), Collections.singletonList(key), requestId);
         if (EXEC_RESULT.equals(result)) {

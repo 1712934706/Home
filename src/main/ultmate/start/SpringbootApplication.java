@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"service","start","controller"})
+@SpringBootApplication(scanBasePackages = {"service","start","controller","utils"})
 @MapperScan("mapper")  //注意这地方要加扫描mapper
 public class SpringbootApplication {
 

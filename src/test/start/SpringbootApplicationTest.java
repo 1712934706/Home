@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import service.UserService;
+import utils.JsonData;
 
 
 /**
@@ -31,9 +32,9 @@ public class SpringbootApplicationTest {
     @Test
     public void contextLoads() {
 
-        User user = userService.getUserInfoByID(1);
+        JsonData<User> user = userService.getUserInfoByID(1);
 
-        System.out.println(JSON.toJSONString(user));
+        System.out.println(JSON.toJSONString(user.getData()));
         redisTemplate.opsForValue().set("key4", "value4");
 
         Assert.assertEquals("value4", redisTemplate.opsForValue().get("key4"));

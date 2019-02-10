@@ -1,6 +1,7 @@
 package service;
 
 import model.User;
+import utils.JsonData;
 
 /**
  * 用户服务类
@@ -9,8 +10,8 @@ public interface UserService {
 
     /**
      * 根据用户id获取用户信息
-     * @param id
-     * @return
+     * @param id 用户id
+     * @return 返回结果
      */
-    User getUserInfoByID(int id);
+    JsonData<User> getUserInfoByID(int id);
 }
