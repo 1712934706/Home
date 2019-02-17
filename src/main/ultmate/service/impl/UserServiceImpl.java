@@ -1,5 +1,6 @@
 package service.impl;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import constants.LockKeys;
 import controller.UserController;
 import mapper.UserMapper;
@@ -34,9 +35,10 @@ public class UserServiceImpl implements UserService {
     public JsonData<User> getUserInfoByID(int id) {
         String lockID = LockKeys.PRE_LOCK_KEY_USER + id;
         //获取锁
-        boolean locked = redisDistributedLock.getLock(lockID, String.valueOf(id), "30");
+        boolean locked = redisDistributedLock.getLock(lockID, String.valueOf(id), "100");
         if (locked) {
             //获取锁成功
+            logger.info("获取锁成功");
             try {
                 Thread.sleep(20 * 1000L);
                 User user = userMapper.selectUserById(id);
@@ -52,6 +54,31 @@ public class UserServiceImpl implements UserService {
         } else {
             return new JsonData<>(false, "获取锁失败");
         }
+    }
+
+    @Override
+    public JsonData addUser(User user) {
+        String lockID = LockKeys.PRE_LOCK_KEY_USER + 1;
+        //获取锁
+        boolean locked = redisDistributedLock.getLock(lockID, String.valueOf(1), "100");
+        if (locked) {
+            try {
+                Boolean res = userMapper.addUser(user);
+                return new JsonData(res, "");
+            } catch (Exception e) {
+                logger.error("新增用户发生错误，原因：{}", e.getMessage());
+                return new JsonData(false, e.getMessage());
+            } finally {
+                //释放锁
+                //这里也可能会解锁失败，暂时不处理，可以等待锁过期之后自动释放
+                redisDistributedLock.releaseLock(lockID, String.valueOf(1));
+            }
+        }
+        else
+        {
+            return new JsonData(false, "获取锁失败");
+        }
+
     }
 }
 

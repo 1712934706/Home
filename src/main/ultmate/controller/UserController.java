@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +41,13 @@ public class UserController {
     public JsonData<User> getUserInfoByID(@RequestParam(name = "id") int id) {
         logger.info("开始获取用户信息，id is {}", id);
         return userService.getUserInfoByID(id);
+    }
+
+    @ApiOperation(value = "添加用户", notes = "添加用户,id会自增")
+    @PostMapping("/addUser")
+    public JsonData addUser(@RequestBody User user) {
+        logger.info("开始添加用户信息");
+        return userService.addUser(user);
     }
 
 }
