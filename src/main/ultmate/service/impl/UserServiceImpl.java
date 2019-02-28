@@ -13,6 +13,7 @@ import service.UserService;
 import start.RedisCacheConfig;
 import utils.JsonData;
 import utils.RedisDistributedLock;
+import utils.log.LogPrint;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    //@LogPrint("测试AOP打印")
     public JsonData<User> getUserInfoByID(int id) {
         String lockID = LockKeys.PRE_LOCK_KEY_USER + id;
         //获取锁
@@ -76,6 +78,7 @@ public class UserServiceImpl implements UserService {
         }
         else
         {
+            //业务层控制轮询获取锁
             return new JsonData(false, "获取锁失败");
         }
 

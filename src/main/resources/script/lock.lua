@@ -1,5 +1,4 @@
---合成一个set的lua
---retemplate是不是有一个set的api
+--后续可以使用一个set的lua，或者spring redisTemplate是不是有一个set的api
 --lua，0是true，1是false
 if ((redis.call('setNx',KEYS[1],ARGV[1]))==1) then
     if (redis.call('get',KEYS[1])==ARGV[1]) then

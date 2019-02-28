@@ -10,5 +10,6 @@ redis
 。
 
 使用maven构建，下载jar包请使用淘宝私库。
+使用swaggerUI调试后台接口。
 
 运行：在工程根目录执行mvn spring-boot:run

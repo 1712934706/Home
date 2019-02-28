@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="logger.path" value="D:\ProjectCode\JavaProject\logs\home"/>
+    <property name="logger.path" value="D:/ProjectCode/JavaProject/logs/home"/>
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
