@@ -1,24 +1,24 @@
 package temp;
 
-import controller.UserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * runnable测试
  */
-public class ThreadRun implements Runnable {
+public class ThreadRunA implements Runnable {
 
   /**
    * 日志工具
    */
-  private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ThreadRunA.class);
 
   //用于测试线程之间的可见性
   private Boolean isContinue;
 
   //数量
   private Integer count;
+  private String resource;
 
   public Boolean getContinue() {
     return isContinue;
@@ -26,6 +26,10 @@ public class ThreadRun implements Runnable {
 
   public void setContinue(Boolean aContinue) {
     isContinue = aContinue;
+  }
+
+  public void setResource(String resource) {
+    this.resource = resource;
   }
 
   public Integer getCount() {
@@ -38,20 +42,22 @@ public class ThreadRun implements Runnable {
 
   @Override
   public void run() {
-    /**###########################
-     * valotile测试
-     logger.info("thread start run");
-
-     while (isContinue) {
-     logger.info("thread is running");
-     }
-     logger.info("thread end run");
-     *############################
-     **/
-    try {
-      calCount();
-    } catch (Exception e) {
+    while (true) {
+      try {
+        synchronized (isContinue) {
+          if (!"".equals(resource)) {
+            isContinue.wait();
+          }
+          logger.info("生产了");
+          resource = "apple";
+          isContinue.notify();
+          logger.info("通知消费者");
+        }
+      } catch (Exception e) {
+        logger.error(Thread.currentThread().getName() + "异常");
+      }
     }
+
   }
 
   public synchronized void calCount() throws Exception {

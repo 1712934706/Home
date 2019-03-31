@@ -14,17 +14,25 @@ public class ThreadMain {
   private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
   public void testRunnable() throws Exception {
-    ThreadRun threadRun = new ThreadRun();
-    threadRun.setContinue(true);
-    threadRun.setCount(Integer.valueOf(1));
+    Boolean isCountine = true;
+    String resource = new String("");
+    ThreadRunA threadRunA = new ThreadRunA();
+    threadRunA.setContinue(isCountine);
+    threadRunA.setResource(resource);
+    threadRunA.setCount(Integer.valueOf(1));
 
-    Thread thread1 = new Thread(threadRun, "A");
-    thread1.start();
-    Thread thread2 = new Thread(threadRun, "B");
+    ThreadRunB threadRunB = new ThreadRunB();
+    threadRunB.setContinue(isCountine);
+    threadRunB.setResource(resource);
+
+    Thread thread2 = new Thread(threadRunB, "B");
     thread2.start();
-    Thread.sleep(2000);
-    logger.info("主线程准备停止子线程");
-    threadRun.setContinue(false);
+    Thread.sleep(100);
+    Thread thread1 = new Thread(threadRunA, "A");
+    thread1.start();
+
+    Thread.sleep(1000);
+
   }
 
 }
