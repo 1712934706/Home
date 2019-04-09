@@ -20,6 +20,18 @@ public class ThreadRunA implements Runnable {
   private Integer count;
   private String resource;
 
+  //测试锁
+  private LockService lockService;
+
+  public LockService getLockService() {
+    return lockService;
+  }
+
+  public void setLockService(LockService lockService) {
+    this.lockService = lockService;
+  }
+
+
   public Boolean getContinue() {
     return isContinue;
   }
@@ -40,22 +52,33 @@ public class ThreadRunA implements Runnable {
     this.count = count;
   }
 
+//  @Override
+//  public void run() {
+//    while (true) {
+//      try {
+//        synchronized (isContinue) {
+//          if (!"".equals(resource)) {
+//            isContinue.wait();
+//          }
+//          logger.info("生产了");
+//          resource = "apple";
+//          isContinue.notify();
+//          logger.info("通知消费者");
+//        }
+//      } catch (Exception e) {
+//        logger.error(Thread.currentThread().getName() + "异常");
+//      }
+//    }
+//
+//  }
+
+
   @Override
   public void run() {
-    while (true) {
-      try {
-        synchronized (isContinue) {
-          if (!"".equals(resource)) {
-            isContinue.wait();
-          }
-          logger.info("生产了");
-          resource = "apple";
-          isContinue.notify();
-          logger.info("通知消费者");
-        }
-      } catch (Exception e) {
-        logger.error(Thread.currentThread().getName() + "异常");
-      }
+    try {
+      lockService.awaitTest();
+    } catch (Exception e) {
+      logger.error(Thread.currentThread().getName() + "异常");
     }
 
   }

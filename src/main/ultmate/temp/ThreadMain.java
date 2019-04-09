@@ -16,19 +16,22 @@ public class ThreadMain {
   public void testRunnable() throws Exception {
     Boolean isCountine = true;
     String resource = new String("");
+    LockService lockService = new LockService();
     ThreadRunA threadRunA = new ThreadRunA();
     threadRunA.setContinue(isCountine);
     threadRunA.setResource(resource);
     threadRunA.setCount(Integer.valueOf(1));
+    threadRunA.setLockService(lockService);
 
     ThreadRunB threadRunB = new ThreadRunB();
     threadRunB.setContinue(isCountine);
     threadRunB.setResource(resource);
+    threadRunB.setLockService(lockService);
 
-    Thread thread2 = new Thread(threadRunB, "B");
+    Thread thread2 = new Thread(threadRunA, "A");
     thread2.start();
     Thread.sleep(100);
-    Thread thread1 = new Thread(threadRunA, "A");
+    Thread thread1 = new Thread(threadRunB, "B");
     thread1.start();
 
     Thread.sleep(1000);

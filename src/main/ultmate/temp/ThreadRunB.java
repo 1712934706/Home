@@ -14,6 +14,17 @@ public class ThreadRunB implements Runnable {
 
   private String resource;
 
+  //测试锁
+  private LockService lockService;
+
+  public LockService getLockService() {
+    return lockService;
+  }
+
+  public void setLockService(LockService lockService) {
+    this.lockService = lockService;
+  }
+
   public Boolean getContinue() {
     return isContinue;
   }
@@ -26,23 +37,35 @@ public class ThreadRunB implements Runnable {
     this.resource = resource;
   }
 
+//  @Override
+//  public void run() {
+//    while (true) {
+//      try {
+//        synchronized (isContinue) {
+//          if ("".equals(resource)) {
+//            isContinue.wait();
+//          }
+//          logger.info("消费了" + resource);
+//          resource = "";
+//          isContinue.notify();
+//          logger.info("通知生产者");
+//        }
+//      } catch (Exception e) {
+//        logger.error(Thread.currentThread().getName() + "异常");
+//      }
+//    }
+//
+//  }
+
   @Override
   public void run() {
-    while (true) {
-      try {
-        synchronized (isContinue) {
-          if ("".equals(resource)) {
-            isContinue.wait();
-          }
-          logger.info("消费了" + resource);
-          resource = "";
-          isContinue.notify();
-          logger.info("通知生产者");
-        }
-      } catch (Exception e) {
-        logger.error(Thread.currentThread().getName() + "异常");
-      }
+    try {
+      lockService.singalTest();
+    } catch (Exception e) {
+      logger.error(Thread.currentThread().getName() + "异常");
     }
 
   }
+
+
 }
