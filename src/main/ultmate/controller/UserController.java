@@ -23,31 +23,31 @@ import utils.JsonData;
 @RequestMapping(path = "/user")
 public class UserController {
 
-    /**
-     * 日志工具
-     */
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+  /**
+   * 日志工具
+   */
+  private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private UserService userService;
+  private UserService userService;
 
-    //使用spring推荐的构造器注入
-    @Autowired
-    UserController(UserService userService) {
-        this.userService = userService;
-    }
+  //使用spring推荐的构造器注入
+  @Autowired
+  UserController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @ApiOperation(value = "根据id查询用户信息", notes = "查询用户信息")
-    @GetMapping("/getUserInfo")
-    public JsonData<User> getUserInfoByID(@RequestParam(name = "id") int id) {
-        logger.info("开始获取用户信息，id is {}", id);
-        return userService.getUserInfoByID(id);
-    }
+  @ApiOperation(value = "根据id查询用户信息", notes = "查询用户信息")
+  @GetMapping("/getUserInfo")
+  public JsonData<User> getUserInfoByID(@RequestParam(name = "id") int id) {
+    logger.info("开始获取用户信息，id is {}", id);
+    return userService.getUserInfoByID(id);
+  }
 
-    @ApiOperation(value = "添加用户", notes = "添加用户,id会自增")
-    @PostMapping("/addUser")
-    public JsonData addUser(@RequestBody User user) {
-        logger.info("开始添加用户信息");
-        return userService.addUser(user);
-    }
+  @ApiOperation(value = "添加用户", notes = "添加用户,id会自增")
+  @PostMapping("/addUser")
+  public JsonData addUser(@RequestBody User user) {
+    logger.info("开始添加用户信息");
+    return userService.addUser(user);
+  }
 
 }

@@ -1,5 +1,6 @@
 package temp;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,18 @@ public class ThreadRunA implements Runnable {
 
   //测试锁
   private LockService lockService;
+
+  //利用阻塞队列实现线程通信
+  private ArrayBlockingQueue queue;
+
+  public ArrayBlockingQueue getQueue() {
+    return queue;
+  }
+
+  public void setQueue(ArrayBlockingQueue queue) {
+    this.queue = queue;
+  }
+
 
   public LockService getLockService() {
     return lockService;
@@ -72,24 +85,29 @@ public class ThreadRunA implements Runnable {
 //
 //  }
 
+//********************测试lock*****************************
+//  @Override
+//  public void run() {
+//    try {
+//      // lockService.awaitTest();
+//      lockService.getLockOne();
+//    } catch (Exception e) {
+//      logger.error(Thread.currentThread().getName() + "异常");
+//    }
+//
+//  }
 
   @Override
   public void run() {
     try {
-      lockService.awaitTest();
+      logger.info(Thread.currentThread().getName() + " start consume");
+      while (true) {
+        logger.info(Thread.currentThread().getName() + " consume " + queue.take());
+      }
     } catch (Exception e) {
       logger.error(Thread.currentThread().getName() + "异常");
     }
 
-  }
-
-  public synchronized void calCount() throws Exception {
-    if ("A".equals(Thread.currentThread().getName())) {
-      Thread.sleep(5);
-    }
-    for (int i = 0; i < 1000; i++) {
-      System.out.println(Thread.currentThread().getName() + count++);
-    }
   }
 
 }

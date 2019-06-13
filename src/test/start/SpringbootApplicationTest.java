@@ -32,6 +32,10 @@ public class SpringbootApplicationTest {
     @Test
     public void contextLoads() {
 
+        int a= -1;
+        a=a&0x7fffffff;
+        System.out.println(a);
+
         JsonData<User> user = userService.getUserInfoByID(1);
 
         System.out.println(JSON.toJSONString(user.getData()));
