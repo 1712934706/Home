@@ -1,49 +1,88 @@
 package temp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-import java.util.TreeMap;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import temp.algorithm.query.AllQuery;
+import temp.algorithm.sort.AllSort;
 
 public class hello {
 
-  public static void mainHello() {
+  public static void main(String[] args) {
 
-    System.out.print("Hello world!");
-    hello h = new hello();
-    h.testThread();
+    StringBuilder temp = new StringBuilder();
+    temp.append("xx");
+    temp.insert(0, "c");
+    System.out.print(temp.toString());
+    AllSort allSort = new AllSort();
+    AllQuery allQuery = new AllQuery();
+    int[] data = new int[]{18, 1, 23, 3, 5, 65, 3, 54, 31, 47};
+//    allSort.insertSort(data);
+//    allSort.shellSort(data);
+//    allSort.quickSort(data, 0, data.length - 1);
+//    allSort.heapSort(data);
+    allSort.mergeSort(data);
 
-    Map<String, String> hashMapTemp = new HashMap<String, String>();
 
-    hashMapTemp.put("123", "456");
-    hashMapTemp.get("123");
+    for (int i = 0; i < data.length; i++) {
+      System.out.println(data[i]);
+    }
+  }
 
 
-    Map<String, String> treeMap = new TreeMap<>();
-    treeMap.put(null,null);
-    Map<String,String> hashtable = new Hashtable<>();
-    Map<String,String> linkedHashMap = new LinkedHashMap<>();
+  class TreeNode {
 
-    Long temp;
-    List<Integer> res = new ArrayList<>();
-    List<Integer> linklist = new LinkedList<>();
-    ConcurrentMap<String, String> concurrentMap = new ConcurrentHashMap<>();
+    int val;
+    TreeNode left;
+    TreeNode right;
 
-    Stack<Integer> stack1 = new Stack<Integer>();
-    Stack<Integer> stack2 = new Stack<Integer>();
+    TreeNode(int x) {
+      val = x;
+    }
+  }
+
+  public int[][] updateMatrix(int[][] matrix) {
+    boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+    int[][] res = new int[matrix.length][matrix[0].length];
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; i < matrix[0].length; j++) {
+        if (matrix[i][j] == 0) {
+          res[i][j] = 0;
+        } else {
+          res[i][j] = cal(visited, matrix, 0, 0, 0);
+          for (int k = 0; k < matrix.length; k++) {
+            for (int p = 0; p < matrix[0].length; p++) {
+              visited[k][p] = false;
+            }
+          }
+        }
+      }
+    }
+
+    return res;
+  }
+
+  public int cal(boolean[][] visited, int[][] matrix, int row, int col, int value) {
+    if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length) {
+      return Integer.MAX_VALUE;
+    }
+    if (visited[row][col] = true) {
+      return Integer.MAX_VALUE;
+    }
+    visited[row][col] = true;
+    if (matrix[row][col] == 1) {
+      value++;
+      int a = Math.min(value, cal(visited, matrix, row++, col, value));
+      a = Math.min(a, cal(visited, matrix, row, col++, value));
+      a = Math.min(a, cal(visited, matrix, row--, col, value));
+      a = Math.min(a, cal(visited, matrix, row, col--, value));
+      return a;
+    } else {
+      return value;
+    }
 
   }
 

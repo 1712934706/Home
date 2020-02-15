@@ -3,6 +3,7 @@ package temp;
 import controller.UserController;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,8 @@ public class LockService {
   private ReentrantLock lock = new ReentrantLock();
 
   private Condition condition = lock.newCondition();
+
+  private ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
 
   //**************************测试await和singal方法*********************************
   public void awaitTest() {

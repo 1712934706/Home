@@ -27,6 +27,8 @@ public class ThreadRunA implements Runnable {
   //利用阻塞队列实现线程通信
   private ArrayBlockingQueue queue;
 
+  ThreadLocal<String> threadLocal = new ThreadLocal<>();
+
   public ArrayBlockingQueue getQueue() {
     return queue;
   }

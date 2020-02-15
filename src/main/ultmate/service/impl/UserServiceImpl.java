@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import service.UserService;
 import start.RedisCacheConfig;
 import utils.JsonData;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     //@LogPrint("测试AOP打印")
+    //@Transactional
     public JsonData<User> getUserInfoByID(int id) {
         String lockID = LockKeys.PRE_LOCK_KEY_USER + id;
         //获取锁
