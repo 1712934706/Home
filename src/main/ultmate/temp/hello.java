@@ -1,35 +1,80 @@
 package temp;
 
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import temp.algorithm.query.AllQuery;
-import temp.algorithm.sort.AllSort;
+import temp.algorithm.tree.BTree;
 
 public class hello {
 
   public static void main(String[] args) {
 
-    StringBuilder temp = new StringBuilder();
-    temp.append("xx");
-    temp.insert(0, "c");
-    System.out.print(temp.toString());
-    AllSort allSort = new AllSort();
-    AllQuery allQuery = new AllQuery();
-    int[] data = new int[]{18, 1, 23, 3, 5, 65, 3, 54, 31, 47};
-//    allSort.insertSort(data);
-//    allSort.shellSort(data);
-//    allSort.quickSort(data, 0, data.length - 1);
-//    allSort.heapSort(data);
-    allSort.mergeSort(data);
+    /**************************排序和搜索**************************/
+//    AllSort allSort = new AllSort();
+//    AllQuery allQuery = new AllQuery();
+//    int[] data = new int[]{18, 1, 23, 3, 5, 65, 3, 54, 31, 47};
+////    allSort.insertSort(data);
+////    allSort.shellSort(data);
+////    allSort.quickSort(data, 0, data.length - 1);
+////    allSort.heapSort(data);
+//    allSort.mergeSort(data);
+//
+//    int val = allQuery.binarySearch(data, 65);
+//    System.out.println(val);
+//
+//    for (int i = 0; i < data.length; i++) {
+//      System.out.println(data[i]);
+//    }
 
+    /*****************************树********************************/
 
-    for (int i = 0; i < data.length; i++) {
-      System.out.println(data[i]);
+    BTree bTree = new BTree();
+    BTree.BinaryTree binaryTree = bTree.new BinaryTree();
+    binaryTree.setVal(1);
+    BTree.BinaryTree binaryTree1 = bTree.new BinaryTree();
+    binaryTree1.setVal(2);
+    BTree.BinaryTree binaryTree2 = bTree.new BinaryTree();
+    binaryTree2.setVal(3);
+    binaryTree.setLeft(binaryTree1);
+    binaryTree.setRight(binaryTree2);
+    BTree.BinaryTree binaryTree3 = bTree.new BinaryTree();
+    binaryTree3.setVal(4);
+    BTree.BinaryTree binaryTree4 = bTree.new BinaryTree();
+    binaryTree4.setVal(5);
+    binaryTree1.setLeft(binaryTree3);
+    binaryTree1.setRight(binaryTree4);
+    List<Integer> res = bTree.InorderTraverse(binaryTree);
+    for (Integer a : res) {
+      System.out.println(a);
     }
+    System.out.println();
+    res = bTree.notRecursionInorderTraverse(binaryTree);
+    for (Integer a : res) {
+      System.out.println(a);
+    }
+    System.out.println();
+    res = bTree.colorInorderTraverse(binaryTree);
+    for (Integer a : res) {
+      System.out.println(a);
+    }
+
+    System.out.println();
+    res = bTree.notRecursionPreorderTraverse(binaryTree);
+    for (Integer a : res) {
+      System.out.println(a);
+    }
+
+    System.out.println();
+    res = bTree.notRecursionPostorderTraverse(binaryTree);
+    for (Integer a : res) {
+      System.out.println(a);
+    }
+
+
   }
 
 
