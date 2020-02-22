@@ -2,6 +2,7 @@ package temp.algorithm.query;
 
 public class AllQuery {
 
+  /***************************二分查找*****************************/
   public int binarySearch(int[] data, int target) {
     int left = 0;
     int right = data.length - 1;

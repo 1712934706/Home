@@ -1,5 +1,11 @@
 package temp;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -7,7 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import temp.algorithm.tree.BTree;
+import temp.algorithm.graph.Graph;
 
 public class hello {
 
@@ -32,47 +38,53 @@ public class hello {
 
     /*****************************树********************************/
 
-    BTree bTree = new BTree();
-    BTree.BinaryTree binaryTree = bTree.new BinaryTree();
-    binaryTree.setVal(1);
-    BTree.BinaryTree binaryTree1 = bTree.new BinaryTree();
-    binaryTree1.setVal(2);
-    BTree.BinaryTree binaryTree2 = bTree.new BinaryTree();
-    binaryTree2.setVal(3);
-    binaryTree.setLeft(binaryTree1);
-    binaryTree.setRight(binaryTree2);
-    BTree.BinaryTree binaryTree3 = bTree.new BinaryTree();
-    binaryTree3.setVal(4);
-    BTree.BinaryTree binaryTree4 = bTree.new BinaryTree();
-    binaryTree4.setVal(5);
-    binaryTree1.setLeft(binaryTree3);
-    binaryTree1.setRight(binaryTree4);
-    List<Integer> res = bTree.InorderTraverse(binaryTree);
-    for (Integer a : res) {
-      System.out.println(a);
-    }
-    System.out.println();
-    res = bTree.notRecursionInorderTraverse(binaryTree);
-    for (Integer a : res) {
-      System.out.println(a);
-    }
-    System.out.println();
-    res = bTree.colorInorderTraverse(binaryTree);
-    for (Integer a : res) {
-      System.out.println(a);
-    }
+//    BTree bTree = new BTree();
+//    BTree.BinaryTree binaryTree = bTree.new BinaryTree();
+//    binaryTree.setVal(1);
+//    BTree.BinaryTree binaryTree1 = bTree.new BinaryTree();
+//    binaryTree1.setVal(2);
+//    BTree.BinaryTree binaryTree2 = bTree.new BinaryTree();
+//    binaryTree2.setVal(3);
+//    binaryTree.setLeft(binaryTree1);
+//    binaryTree.setRight(binaryTree2);
+//    BTree.BinaryTree binaryTree3 = bTree.new BinaryTree();
+//    binaryTree3.setVal(4);
+//    BTree.BinaryTree binaryTree4 = bTree.new BinaryTree();
+//    binaryTree4.setVal(5);
+//    binaryTree1.setLeft(binaryTree3);
+//    binaryTree1.setRight(binaryTree4);
+//    List<Integer> res = bTree.InorderTraverse(binaryTree);
+//    for (Integer a : res) {
+//      System.out.println(a);
+//    }
+//    System.out.println();
+//    res = bTree.notRecursionInorderTraverse(binaryTree);
+//    for (Integer a : res) {
+//      System.out.println(a);
+//    }
+//    System.out.println();
+//    res = bTree.colorInorderTraverse(binaryTree);
+//    for (Integer a : res) {
+//      System.out.println(a);
+//    }
+//
+//    System.out.println();
+//    res = bTree.notRecursionPreorderTraverse(binaryTree);
+//    for (Integer a : res) {
+//      System.out.println(a);
+//    }
+//
+//    System.out.println();
+//    res = bTree.notRecursionPostorderTraverse(binaryTree);
+//    for (Integer a : res) {
+//      System.out.println(a);
+//    }
 
-    System.out.println();
-    res = bTree.notRecursionPreorderTraverse(binaryTree);
-    for (Integer a : res) {
-      System.out.println(a);
-    }
+    /*****************************图********************************/
+    Graph graph = new Graph();
+    List<Integer> res = graph.dfs(new HashMap<>());
 
-    System.out.println();
-    res = bTree.notRecursionPostorderTraverse(binaryTree);
-    for (Integer a : res) {
-      System.out.println(a);
-    }
+    res.forEach(i -> System.out.println(i));
 
 
   }
@@ -89,46 +101,39 @@ public class hello {
     }
   }
 
-  public int[][] updateMatrix(int[][] matrix) {
-    boolean[][] visited = new boolean[matrix.length][matrix[0].length];
-    int[][] res = new int[matrix.length][matrix[0].length];
-    for (int i = 0; i < matrix.length; i++) {
-      for (int j = 0; i < matrix[0].length; j++) {
-        if (matrix[i][j] == 0) {
-          res[i][j] = 0;
-        } else {
-          res[i][j] = cal(visited, matrix, 0, 0, 0);
-          for (int k = 0; k < matrix.length; k++) {
-            for (int p = 0; p < matrix[0].length; p++) {
-              visited[k][p] = false;
-            }
-          }
-        }
-      }
-    }
 
+  public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+    Arrays.sort(candidates);
+    List<List<Integer>> res = new ArrayList<>();
+    Deque<Integer> one = new ArrayDeque<>();
+    cal(candidates, target, 0, 0, res, one);
     return res;
   }
 
-  public int cal(boolean[][] visited, int[][] matrix, int row, int col, int value) {
-    if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length) {
-      return Integer.MAX_VALUE;
-    }
-    if (visited[row][col] = true) {
-      return Integer.MAX_VALUE;
-    }
-    visited[row][col] = true;
-    if (matrix[row][col] == 1) {
-      value++;
-      int a = Math.min(value, cal(visited, matrix, row++, col, value));
-      a = Math.min(a, cal(visited, matrix, row, col++, value));
-      a = Math.min(a, cal(visited, matrix, row--, col, value));
-      a = Math.min(a, cal(visited, matrix, row, col--, value));
-      return a;
-    } else {
-      return value;
-    }
+  public void cal(int[] data, int target, int sum, int posi, List<List<Integer>> res,
+      Deque<Integer> one) {
 
+    if (sum >= target || posi == data.length) {
+      if (sum == target) {
+        List<Integer> temp = new LinkedList<>(one);
+        res.add(temp);
+        return;
+      }
+    }
+    for (int i = posi; i < data.length; i++) {
+      if (data[i] > target) {
+        return;
+      }
+      if (i > posi && data[i - 1] == data[i]) {
+        continue;
+      }
+      one.addLast(data[i]);
+      sum += data[i];
+      cal(data, target, sum, i + 1, res, one);
+      one.removeLast();
+      sum -= data[i];
+
+    }
   }
 
 
