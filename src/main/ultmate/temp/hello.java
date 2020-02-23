@@ -86,6 +86,11 @@ public class hello {
 
     res.forEach(i -> System.out.println(i));
 
+    System.out.println();
+    res = graph.bfs(new HashMap<>());
+
+    res.forEach(i -> System.out.println(i));
+
 
   }
 
