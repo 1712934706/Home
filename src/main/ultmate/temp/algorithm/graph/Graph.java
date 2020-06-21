@@ -96,8 +96,16 @@ public class Graph {
   }
 
   /***************************dijkstra*****************************/
+  //https://blog.csdn.net/qq_35644234/article/details/60870719?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
+
 
   /***************************floyd*****************************/
+
+
+  /*******************************bellman-ford**********************/
+
+
+  /********************************SPFA******************************/
 
 
 }

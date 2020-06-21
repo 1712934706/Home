@@ -1,12 +1,14 @@
 package temp;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -88,10 +90,6 @@ public class hello {
 
     System.out.println();
     res = graph.bfs(new HashMap<>());
-
-    res.forEach(i -> System.out.println(i));
-
-
   }
 
 
@@ -107,44 +105,32 @@ public class hello {
   }
 
 
-  public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-    Arrays.sort(candidates);
-    List<List<Integer>> res = new ArrayList<>();
-    Deque<Integer> one = new ArrayDeque<>();
-    cal(candidates, target, 0, 0, res, one);
-    return res;
-  }
+  class ListNode {
 
-  public void cal(int[] data, int target, int sum, int posi, List<List<Integer>> res,
-      Deque<Integer> one) {
+    int val;
+    ListNode next;
 
-    if (sum >= target || posi == data.length) {
-      if (sum == target) {
-        List<Integer> temp = new LinkedList<>(one);
-        res.add(temp);
-        return;
-      }
+    ListNode(int x) {
+      val = x;
+      next = null;
     }
-    for (int i = posi; i < data.length; i++) {
-      if (data[i] > target) {
-        return;
-      }
-      if (i > posi && data[i - 1] == data[i]) {
-        continue;
-      }
-      one.addLast(data[i]);
-      sum += data[i];
-      cal(data, target, sum, i + 1, res, one);
-      one.removeLast();
-      sum -= data[i];
 
-    }
   }
 
 
-  /**
-   * 线程池以及任务，callable接口
-   */
+  public int change(int amount, int[] coins) {
+    int[] dp = new int[amount + 1];
+    dp[0] = 1;
+
+    for (int coin : coins) {
+      for (int x = coin; x < amount + 1; ++x) {
+        dp[x] += dp[x - coin];
+      }
+    }
+    return dp[amount];
+  }
+
+
   public void testThread() {
 
     ThreadCall threadCall = new ThreadCall();
@@ -172,65 +158,27 @@ public class hello {
     }
   }
 
-
   /**
    * runable线程测试
    */
-  public String test(String s, int numRows) {
-    if (null == s || s.length() < 1) {
-      return "";
-    }
-    if (numRows < 2) {
-      return s;
-    }
-    Character[][] str = new Character[numRows][s.length()];
+  public void test(String s, int numRows) {
+    Stack<Integer> stack = new Stack<>();
+    stack.push(1);
+    stack.pop();
 
-    int row = 0, col = 0;
+    List<Integer> list = new ArrayList<>();
+    list.add(1);
 
-    for (int i = 0; i < s.length(); i++) {
-      if (row == numRows - 1) {
-        str[row][col] = s.charAt(i);
-        while (true) {
-          if (--row == 0) {
-            i++;
-            break;
-          } else {
-            if (i < s.length() - 1) {
-              str[row][++col] = s.charAt(++i);
-            }
-          }
+    Queue<Integer> queue = new LinkedList<>();
+    queue.offer(1);
+    queue.poll();
 
-        }
+    Deque<Integer> deque = new LinkedList<>();
+    PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+    priorityQueue.offer(1);
 
-      } else {
-        str[row][col] = s.charAt(i);
-        while (true) {
-          if (++row == numRows - 1) {
-            i++;
-            break;
-          } else {
-            if (i < s.length() - 1) {
-              str[row][col] = s.charAt(++i);
-            }
-          }
-
-        }
-
-      }
-
-    }
-
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < numRows; i++) {
-      for (int j = 0; j < s.length(); j++) {
-        if (null != str[i][j]) {
-          sb.append(str[i][j]);
-        }
-      }
-    }
-
-    return sb.toString();
-
+    Map<String, String> map = new HashMap<>();
+    map.put("a", null);
   }
 
 
