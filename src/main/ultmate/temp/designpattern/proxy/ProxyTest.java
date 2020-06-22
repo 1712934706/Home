@@ -1,8 +1,8 @@
 package temp.designpattern.proxy;
 
-import temp.designpattern.proxy.dynamicproxy.IRentHose;
-import temp.designpattern.proxy.dynamicproxy.IntermediaryAgent;
-import temp.designpattern.proxy.dynamicproxy.Tenant;
+import temp.designpattern.proxy.staticproxy.IRentHose;
+import temp.designpattern.proxy.staticproxy.IntermediaryAgent;
+import temp.designpattern.proxy.staticproxy.Tenant;
 
 public class ProxyTest {
 

@@ -1,4 +1,4 @@
-package temp.designpattern.proxy.dynamicproxy;
+package temp.designpattern.proxy.staticproxy;
 
 /**
  * 租房接口

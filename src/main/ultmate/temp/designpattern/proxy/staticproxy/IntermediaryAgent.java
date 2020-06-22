@@ -1,4 +1,4 @@
-package temp.designpattern.proxy.dynamicproxy;
+package temp.designpattern.proxy.staticproxy;
 
 /**
  * 代理模式的核心是代理类对实际类的动作进行了包装，然后加入了代理自己的动作
