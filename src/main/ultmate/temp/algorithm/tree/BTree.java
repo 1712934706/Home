@@ -103,7 +103,8 @@ public class BTree {
   }
 
   /**************************颜色标记法遍历**************************/
-  //颜色标记遍历方法，兼具非递归遍历的速度和递归遍历简单的写法
+  //颜色标记遍历方法，兼具非递归遍历的速度和递归遍历简单的写法，针对不同的遍历方式，修改节点入栈的顺序即可
+  //根节点初始化为白色，后面在栈中访问过以后变为黑色，把子节点入栈标记为白色
   public List<Integer> colorInorderTraverse(BinaryTree binaryTree) {
     List<Integer> res = new ArrayList<>();
     Stack<Map<Integer, Object>> stack = new Stack<>();
@@ -119,6 +120,7 @@ public class BTree {
       }
 
       if (String.valueOf(nodeCur.get(1)).equals("white")) {
+        //子节点初始化时，白色
         if (((BinaryTree) nodeCur.get(0)).right != null) {
           Map<Integer, Object> nodeRight = new HashMap<>();
           nodeRight.put(0, ((BinaryTree) nodeCur.get(0)).right);
@@ -126,9 +128,11 @@ public class BTree {
           stack.push(nodeRight);
         }
 
+        //访问过，变为黑色
         nodeCur.put(1, "black");
         stack.push(nodeCur);
 
+        //子节点初始化时，白色
         if (((BinaryTree) nodeCur.get(0)).left != null) {
           Map<Integer, Object> nodeLeft = new HashMap<>();
           nodeLeft.put(0, ((BinaryTree) nodeCur.get(0)).left);
