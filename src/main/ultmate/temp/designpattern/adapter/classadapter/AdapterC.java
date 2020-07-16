@@ -2,6 +2,8 @@ package temp.designpattern.adapter.classadapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import temp.designpattern.adapter.Source;
+import temp.designpattern.adapter.Targetable;
 
 /**
  * 适配器，继承的方式适配source类
