@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import temp.algorithm.graph.Graph;
+import temp.algorithm.tree.BTree;
 
 public class hello {
 
@@ -40,22 +40,23 @@ public class hello {
 
     /*****************************树********************************/
 
-//    BTree bTree = new BTree();
-//    BTree.BinaryTree binaryTree = bTree.new BinaryTree();
-//    binaryTree.setVal(1);
-//    BTree.BinaryTree binaryTree1 = bTree.new BinaryTree();
-//    binaryTree1.setVal(2);
-//    BTree.BinaryTree binaryTree2 = bTree.new BinaryTree();
-//    binaryTree2.setVal(3);
-//    binaryTree.setLeft(binaryTree1);
-//    binaryTree.setRight(binaryTree2);
-//    BTree.BinaryTree binaryTree3 = bTree.new BinaryTree();
-//    binaryTree3.setVal(4);
-//    BTree.BinaryTree binaryTree4 = bTree.new BinaryTree();
-//    binaryTree4.setVal(5);
-//    binaryTree1.setLeft(binaryTree3);
-//    binaryTree1.setRight(binaryTree4);
-//    List<Integer> res = bTree.InorderTraverse(binaryTree);
+    BTree bTree = new BTree();
+    BTree.BinaryTree binaryTree = bTree.new BinaryTree();
+    binaryTree.setVal(1);
+    BTree.BinaryTree binaryTree1 = bTree.new BinaryTree();
+    binaryTree1.setVal(2);
+    BTree.BinaryTree binaryTree2 = bTree.new BinaryTree();
+    binaryTree2.setVal(3);
+    binaryTree.setLeft(binaryTree1);
+    binaryTree.setRight(binaryTree2);
+    BTree.BinaryTree binaryTree3 = bTree.new BinaryTree();
+    binaryTree3.setVal(4);
+    BTree.BinaryTree binaryTree4 = bTree.new BinaryTree();
+    binaryTree4.setVal(5);
+    binaryTree1.setLeft(binaryTree3);
+    binaryTree1.setRight(binaryTree4);
+////    List<Integer> res = inorder(binaryTree);
+////    List<Integer> res = bTree.InorderTraverse(binaryTree);
 //    for (Integer a : res) {
 //      System.out.println(a);
 //    }
@@ -83,13 +84,14 @@ public class hello {
 //    }
 
     /*****************************图********************************/
-    Graph graph = new Graph();
-    List<Integer> res = graph.dfs(new HashMap<>());
+//    Graph graph = new Graph();
+//    List<Integer> res = graph.dfs(new HashMap<>());
+//
+//    res.forEach(i -> System.out.println(i));
+//
+//    System.out.println();
+//    res = graph.bfs(new HashMap<>());
 
-    res.forEach(i -> System.out.println(i));
-
-    System.out.println();
-    res = graph.bfs(new HashMap<>());
   }
 
 
@@ -118,16 +120,33 @@ public class hello {
   }
 
 
-  public int change(int amount, int[] coins) {
-    int[] dp = new int[amount + 1];
-    dp[0] = 1;
-
-    for (int coin : coins) {
-      for (int x = coin; x < amount + 1; ++x) {
-        dp[x] += dp[x - coin];
+  public List<List<Integer>> levelOrder(TreeNode root) {
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+    List<List<Integer>> res = new ArrayList<>();
+    int lc = 1;
+    int tmp = 0;
+    while (!queue.isEmpty()) {
+      List<Integer> levelN = new ArrayList<>();
+      while (lc-- > 0) {
+        if (!queue.isEmpty()) {
+          TreeNode node = queue.poll();
+          levelN.add(node.val);
+          if (node.left != null) {
+            queue.offer(node.left);
+            tmp++;
+          }
+          if (node.right != null) {
+            queue.offer(node.right);
+            tmp++;
+          }
+        }
       }
+      res.add(levelN);
+      lc = tmp;
+      tmp = 0;
     }
-    return dp[amount];
+    return res;
   }
 
 
@@ -179,6 +198,20 @@ public class hello {
 
     Map<String, String> map = new HashMap<>();
     map.put("a", null);
+  }
+
+  public int testC() throws Exception {
+    for (int i = 0; i < 2; i++) {
+      try {
+        throw new Exception("BB");
+      } catch (Exception e) {
+        throw e;
+      } finally {
+        continue;
+      }
+    }
+
+    return 0;
   }
 
 

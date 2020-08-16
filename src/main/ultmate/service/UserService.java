@@ -8,19 +8,19 @@ import utils.JsonData;
  */
 public interface UserService {
 
-    /**
-     * 根据用户id获取用户信息
-     *
-     * @param id 用户id
-     * @return 返回结果
-     */
-    JsonData<User> getUserInfoByID(int id);
+  /**
+   * 根据用户id获取用户信息
+   *
+   * @param id 用户id
+   * @return 返回结果
+   */
+  JsonData<User> getUserInfoByID(int id);
 
-    /**
-     * 新增用户
-     *
-     * @param id 用户id
-     * @return 返回结果
-     */
-    JsonData addUser(User user);
+  /**
+   * 新增用户
+   *
+   * @param id 用户id
+   * @return 返回结果
+   */
+  JsonData addUser(User user);
 }
