@@ -30,7 +30,7 @@ public class AllSort {
 
   /***************************快速排序****************************/
   public void quickSort(int[] data, int low, int high) {
-    while (low < high) {
+    if (low < high) {
       int posi = quickSortCore(data, low, high);
       quickSort(data, low, posi - 1);
       quickSort(data, posi + 1, high);
@@ -47,6 +47,7 @@ public class AllSort {
   public int quickSortCore(int[] data, int low, int high) {
     int temp = data[low];
     while (low < high) {
+      //这里必须用>=否则相等时会死循环
       while (low < high && data[high] >= temp) {
         high--;
       }
@@ -92,6 +93,7 @@ public class AllSort {
   }
 
   public void heapSort(int[] data) {
+    //建堆
     for (int i = data.length / 2 - 1; i >= 0; i--) {
       heapSortCore(data, i, data.length);
     }

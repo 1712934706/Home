@@ -92,6 +92,15 @@ public class hello {
 //    System.out.println();
 //    res = graph.bfs(new HashMap<>());
 
+    int[] data = new int[]{
+        2, 5, 3, 8, 12, 1, 34, 21, 24, 10
+    };
+
+//    qc(data, 0, data.length - 1);
+    for (int i = 0; i < data.length; i++) {
+      System.out.println(data[i]);
+    }
+
   }
 
 
@@ -120,36 +129,6 @@ public class hello {
   }
 
 
-  public List<List<Integer>> levelOrder(TreeNode root) {
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.offer(root);
-    List<List<Integer>> res = new ArrayList<>();
-    int lc = 1;
-    int tmp = 0;
-    while (!queue.isEmpty()) {
-      List<Integer> levelN = new ArrayList<>();
-      while (lc-- > 0) {
-        if (!queue.isEmpty()) {
-          TreeNode node = queue.poll();
-          levelN.add(node.val);
-          if (node.left != null) {
-            queue.offer(node.left);
-            tmp++;
-          }
-          if (node.right != null) {
-            queue.offer(node.right);
-            tmp++;
-          }
-        }
-      }
-      res.add(levelN);
-      lc = tmp;
-      tmp = 0;
-    }
-    return res;
-  }
-
-
   public void testThread() {
 
     ThreadCall threadCall = new ThreadCall();
@@ -166,7 +145,11 @@ public class hello {
     //FutureTask任务
     FutureTask<Integer> result = new FutureTask<Integer>(threadCall);
     executorService.submit(result);
+    try {
+      int res = result.get();
+    } catch (Exception e) {
 
+    }
     executorService.shutdown();
 
     try {
